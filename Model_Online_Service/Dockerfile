@@ -1,13 +1,19 @@
-FROM jupyter/scipy-notebook
+# Use a base image with Python 3.10.12 pre-installed
+FROM python:3.10.12-slim
 
-COPY requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt 
+# Set the working directory inside the container
+WORKDIR /app
 
-COPY train.csv ./train.csv
-COPY test.json ./test.json
+# Copy your application files into the container
+COPY inference.py .
+COPY test.csv .
+COPY Lda.sav .
+COPY NN.sav .
+COPY svm.joblib .
 
-COPY train.py ./train.py
-COPY api.py ./api.py
+# Install necessary dependencies
+RUN pip install --upgrade pip
+RUN pip install pandas scikit-learn joblib
 
-
-RUN python3 train.py
+# Command to run the inference.py script
+CMD ["python", "inference.py"]
