@@ -28,7 +28,7 @@ def inference():
     MODEL_PATH_SVM = 'svm.joblib'
         
     # Load, read and normalize training data
-    testing = "test.csv"
+    #testing = "test.csv"
     data_test = pd.read_csv("./Week12_13/Model_Batch_Service/test.csv")
         
     y_test = data_test['# Letter'].values
