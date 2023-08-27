@@ -29,7 +29,7 @@ def inference():
         
     # Load, read and normalize training data
     #testing = "test.csv"
-    data_test = pd.read_csv("/home/ubuntu/Week12_13/Model_Online_Service/test.csv")
+    data_test = pd.read_csv("test.csv")
         
     y_test = data_test['# Letter'].values
     X_test = data_test.drop(data_test.loc[:, 'Line':'# Letter'].columns, axis = 1)
