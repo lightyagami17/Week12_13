@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 # inference.py
-# Xavier Vasques 13/04/2021
 
 
 import platform; print(platform.platform())
@@ -16,28 +15,34 @@ import pandas as pd
 from joblib import load
 from sklearn import preprocessing
 from sklearn.metrics import classification_report
+from sklearn.svm import SVC
+import joblib
 
 
 
 def inference():
 
-    MODEL_DIR = '/Volumes/GL/TECH/IIITH/TA_Session_Material/Material/EEG-letters-main'
-    MODEL_PATH_LDA = 'lda.joblib'
-    MODEL_PATH_NN = 'nn.joblib'
+    MODEL_DIR = './drive/MyDrive/Week12_13/Model_Online_Service/'
+    MODEL_PATH_LDA = 'Lda.sav'
+    MODEL_PATH_NN = 'NN.sav'
+    MODEL_PATH_SVM = 'svm.joblib'
         
     # Load, read and normalize training data
     testing = "test.csv"
-    data_test = pd.read_csv(testing)
+    data_test = pd.read_csv("./drive/MyDrive/Week12_13/Model_Batch_Service/test.csv")
         
     y_test = data_test['# Letter'].values
     X_test = data_test.drop(data_test.loc[:, 'Line':'# Letter'].columns, axis = 1)
-   
+
     print("Shape of the test data")
     print(X_test.shape)
     print(y_test.shape)
     
     # Data normalization (0,1)
     X_test = preprocessing.normalize(X_test, norm='l2')
+    clf_lda = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_LDA))
+    clf_nn = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_NN))
+    clf_svm = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_SVM))
     
     # Models training
     
@@ -63,7 +68,20 @@ def inference():
     print(clf_nn.score(X_test, y_test))
     print('NN Prediction:', prediction_nn)
     print('NN Classification Report:', report_nn)
+
+    clf_svm = load(os.path.join(MODEL_DIR, MODEL_PATH_SVM))
+    print("SVM score and classification:")
+    prediction_svm = clf_svm.predict(X_test)
+    report_svm = classification_report(y_test, prediction_svm)
+
+    print(clf_svm.score(X_test, y_test))
+    print('SVM Prediction:', prediction_svm)
+    print('SVM Classification Report:', report_svm)
     
     
 if __name__ == '__main__':
     inference()
+
+
+
+
