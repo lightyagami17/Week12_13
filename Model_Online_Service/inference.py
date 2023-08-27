@@ -69,7 +69,7 @@ def inference():
     print('NN Prediction:', prediction_nn)
     print('NN Classification Report:', report_nn)
 
-    clf_svm = load(os.path.join(MODEL_DIR, MODEL_PATH_SVM))
+    clf_svm = load(os.path.join(MODEL_PATH_SVM))
     print("SVM score and classification:")
     prediction_svm = clf_svm.predict(X_test)
     report_svm = classification_report(y_test, prediction_svm)
