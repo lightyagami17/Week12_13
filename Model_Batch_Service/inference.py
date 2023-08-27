@@ -22,14 +22,14 @@ import joblib
 
 def inference():
 
-    MODEL_DIR = './Week12_13/Model_Online_Service/'
+    MODEL_DIR = '/home/ubuntu/Week12_13/Model_Online_Service/'
     MODEL_PATH_LDA = 'Lda.sav'
     MODEL_PATH_NN = 'NN.sav'
     MODEL_PATH_SVM = 'svm.joblib'
         
     # Load, read and normalize training data
     #testing = "test.csv"
-    data_test = pd.read_csv("./Week12_13/Model_Batch_Service/test.csv")
+    data_test = pd.read_csv("/home/ubuntu/Week12_13/Model_Online_Service/test.csv")
         
     y_test = data_test['# Letter'].values
     X_test = data_test.drop(data_test.loc[:, 'Line':'# Letter'].columns, axis = 1)
