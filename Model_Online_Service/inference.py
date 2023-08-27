@@ -40,9 +40,9 @@ def inference():
     
     # Data normalization (0,1)
     X_test = preprocessing.normalize(X_test, norm='l2')
-    clf_lda = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_LDA))
-    clf_nn = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_NN))
-    clf_svm = joblib.load(os.path.join(MODEL_DIR, MODEL_PATH_SVM))
+    clf_lda = joblib.load(os.path.join(MODEL_PATH_LDA))
+    clf_nn = joblib.load(os.path.join(MODEL_PATH_NN))
+    clf_svm = joblib.load(os.path.join(MODEL_PATH_SVM))
     
     # Models training
     
